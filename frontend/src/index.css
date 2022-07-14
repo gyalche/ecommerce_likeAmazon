@@ -38,3 +38,13 @@ header a {
 .site-container {
   min-height: 100vh;
 }
+.btn-secondary {
+  color: black;
+}
+.rating span {
+  color: #ffc0c0;
+}
+.btn-primary {
+  background-color: #f0c040;
+  color: black;
+}
