@@ -8,7 +8,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { Helmet } from 'react-helmet-async';
+// import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 //reducer work;
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,9 +46,9 @@ const ProductScreen = () => {
     fetchData();
   }, [slug]);
   return loading ? (
-    <div>Loading...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div style={{ marginTop: '20px' }}>
       <Row>
