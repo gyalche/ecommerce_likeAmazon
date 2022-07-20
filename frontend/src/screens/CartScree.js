@@ -10,7 +10,7 @@ import Card from 'react-bootstrap/Card';
 import axios from '../axios';
 import MessageBox from '../components/MessageBox';
 const CartScree = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -101,10 +101,10 @@ const CartScree = () => {
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
+                  {' '}
                   <h3>
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items): $
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity)})
+                    Subtotal ({cartItems?.reduce((a, c) => a + c.quantity, 0)}{' '}
+                    items):{' '}
                   </h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
