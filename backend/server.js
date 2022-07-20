@@ -1,8 +1,29 @@
 import express from 'express';
 import data from './data.js';
 import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
 const app = express();
+
+dotenv.config();
 app.use(cors());
+app.use(morgan('dev'));
+
+//mongodb connection
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then((data) => {
+    console.log(`mongodb is connected at ${data.connection.host}`);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api/products', function (req, res) {
   res.send(data.products);
 });
