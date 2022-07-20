@@ -26,7 +26,7 @@ const reducer = (state, action) => {
   }
 };
 const ProductScreen = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
@@ -80,6 +80,7 @@ const ProductScreen = () => {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     });
+    navigate('/cart');
   };
 
   return loading ? (
