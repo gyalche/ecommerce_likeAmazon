@@ -48,7 +48,6 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/cart" element={<CartScree />} />
               <Route path="/signin" element={<SigninScreen />} />
-
               <Route path="/product/:slug" element={<ProductScreen />} />
             </Routes>
           </Container>
