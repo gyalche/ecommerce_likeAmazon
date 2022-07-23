@@ -14,6 +14,7 @@ import SigninScreen from './screens/SigninScreen';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import SignupScreen from './screens/SginupScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -52,7 +53,7 @@ function App() {
                 </Link>
                 {userInfo ? (
                   <NavDropdown
-                    title={userInfo.username}
+                    title={userInfo?.username}
                     id="basic-nav-dropdown"
                   >
                     <LinkContainer to="/profile">
@@ -90,6 +91,7 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/cart" element={<CartScree />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/signup" element={<SignupScreen />} />
               <Route path="/shipping" element={<ShippingAddressScreen />} />
               <Route path="/product/:slug" element={<ProductScreen />} />
             </Routes>
