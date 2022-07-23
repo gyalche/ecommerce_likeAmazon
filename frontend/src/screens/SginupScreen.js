@@ -29,8 +29,11 @@ const SignupScreen = () => {
         console.log(response);
         if (response.data.success) {
           // alert('sucessfully registered');
-          localStorage.setItem('userInfo', JSON.stringify(response.data));
-          ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
+          localStorage.setItem(
+            'userInfo',
+            JSON.stringify(response.data.success)
+          );
+          ctxDispatch({ type: 'USER_SIGNIN', payload: response.data.success });
           toast.success('sucessfully signed in');
           navigate(redirect || '/');
         }
