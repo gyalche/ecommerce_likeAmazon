@@ -75,3 +75,7 @@ main {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
 }
+.img-fluid {
+  width: 100px;
+  height: 50px;
+}
