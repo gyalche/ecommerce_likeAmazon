@@ -51,7 +51,7 @@ function reducer(state, action) {
       return {
         ...state,
         userInfo: null,
-        cart: { cartItems: [], shippingAddress: {}, paymentMethod: {} },
+        cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' },
       };
 
     case 'SAVE_SHIPPING_ADDRESS':
