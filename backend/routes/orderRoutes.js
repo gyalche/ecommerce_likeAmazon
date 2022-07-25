@@ -1,6 +1,6 @@
 import express from 'express';
 import Order from '../models/orderModel.js';
-import { verifyTokenAndAuthorization } from './verirfyToken.js';
+import { verifyToken, verifyTokenAndAuthorization } from './verirfyToken.js';
 
 const router = express.Router();
 router.post('/', verifyTokenAndAuthorization, async (req, res) => {
@@ -15,8 +15,6 @@ router.post('/', verifyTokenAndAuthorization, async (req, res) => {
     user: req.user._id,
   });
   const order = await newOrder.save();
-  res
-    .status(201)
-    .send({ message: 'New order created', order: order, success: true });
+  res.status(201).send({ message: 'New order created', order: order });
 });
 export default router;

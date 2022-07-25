@@ -59,7 +59,9 @@ const PlaceOrderScreen = () => {
           totalPrice: cart.totalPrice,
         },
         {
-          headers: { authorization: 'Bearer ${userInfo.token' },
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
         }
       );
       ctxDispatch({ type: 'CART_CLEAR' });
