@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/produtRoutes.js';
 import authRoute from './routes/auth.js';
+import orderRoute from './routes/orderRoutes.js';
 const app = express();
 
 dotenv.config();
@@ -32,7 +33,7 @@ app.use('/api/seed', seedRouter);
 
 app.use('/api/products', productRouter);
 app.use('/api/user/', authRoute);
-
+app.use('/api/orders', orderRoute);
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log(`server at http://localhost:${port}`);

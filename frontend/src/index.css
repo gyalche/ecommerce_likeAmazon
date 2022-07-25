@@ -79,3 +79,10 @@ main {
   width: 100px;
   height: 50px;
 }
+.name_profile {
+  color: white;
+}
+
+#basic-nav-dropdown {
+  color: white;
+}

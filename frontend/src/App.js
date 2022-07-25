@@ -56,6 +56,7 @@ function App() {
                 </Link>
                 {userInfo ? (
                   <NavDropdown
+                    className="name_profile"
                     title={userInfo?.username}
                     id="basic-nav-dropdown"
                   >
@@ -98,6 +99,7 @@ function App() {
               <Route path="/shipping" element={<ShippingAddressScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/payment" element={<PaymentMethodScreen />} />
+              <Route path="/order" element={<orderScreen />} />
               <Route path="/product/:slug" element={<ProductScreen />} />
             </Routes>
           </Container>
