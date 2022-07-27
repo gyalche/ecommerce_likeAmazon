@@ -4,11 +4,13 @@ import CryptoJS from 'crypto-js';
 import User from '../models/userModel.js';
 const router = new express.Router();
 router.post('/register', async function (req, res) {
+  
   const user = new User({
     username: req.body.username,
     email: req.body.email,
     password: CryptoJS.AES.encrypt(req.body.password, 'mysecretkey').toString(),
   });
+  
   try {
     const savedUser = await user.save();
     res.status(201).json({ savedUser, success: true });
@@ -37,7 +39,7 @@ router.post('/login', async (req, res) => {
 
     const accessToken = jwt.sign(
       {
-        id: user._id,
+        userId: user._id,
         isAdmin: user.isAdmin,
       },
       'mysecretkey',

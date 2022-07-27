@@ -8,18 +8,18 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from '../axios';
+import axios from '../axios.js';
 import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'CREATE_REQUEST':
+    case 'CREAT_REQUEST':
       return { ...state, loading: true };
 
-    case 'CREATE_SUCCESS':
+    case 'CREAT_SUCCESS':
       return { ...state, loading: false };
 
-    case 'CREATE_FAIL':
+    case 'CREAT_FAIL':
       return { ...state, loading: false };
 
     default:
@@ -44,41 +44,39 @@ const PlaceOrderScreen = () => {
   //for shipping price;
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
 
-  const placeOrderHandler = async () => {
-    try {
-      dispatch({ type: 'CREATE_REQUEST' });
-      const { data } = await axios.post(
-        '/api/orders',
-        {
-          orderItems: cart.cartItems,
-          shippingAddress: cart.shippingAddress,
-          paymentMethod: cart.paymentMethod,
-          itemsPrice: cart.itemsPrice,
-          shippingPrice: cart.shippingPrice,
-          taxPrice: cart.taxPrice,
-          totalPrice: cart.totalPrice,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
-      ctxDispatch({ type: 'CART_CLEAR' });
-      dispatch({ type: 'CREATE_SUCCESS' });
-      localStorage.removeItem('cartItems');
-      navigate(`/order/${data.order._id}`);
-    } catch (error) {
-      dispatch({ type: 'CREATE_FAIL' });
-      toast.error(error.message);
-    }
-  };
-
   //tax price;
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   //toal price;
 
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+
+    const outputs = {
+    orderItems: cart.cartItems,
+    shippingAddress: cart.shippingAddress,
+    paymentMethod: cart.paymentMethod,
+    itemsPrice: cart.itemsPrice,
+    shippingPrice: cart.shippingPrice,
+    taxPrice: cart.taxPrice,
+    totalPrice: cart.totalPrice,
+  };
+  const placeOrderHandler = async () => {
+    try {
+      dispatch({ type: 'CREAT_REQUEST' });
+      const { data } = await axios.post('/api/orders', outputs, {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+
+      ctxDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREAT_SUCCESS' });
+      localStorage.removeItem('cartItems');
+      navigate(`/order/${data.order._id}`);
+    } catch (error) {
+      dispatch({ type: 'CREAT_FAIL' });
+      toast.error(error.message);
+    }
+  };
   useEffect(() => {
     if (!cart.paymentMethod) {
       navigate('/payment');

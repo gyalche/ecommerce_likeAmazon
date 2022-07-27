@@ -54,7 +54,7 @@ const SigninScreen = () => {
     };
     e.preventDefault();
     try {
-      await axios.post('api/user/login', outputs).then((response) => {
+      await axios.post('/api/user/login', outputs).then((response) => {
         console.log(response);
         if (response.data.token) {
           // alert('sucessfully registered');

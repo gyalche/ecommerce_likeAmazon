@@ -101,7 +101,6 @@ function App() {
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/payment" element={<PaymentMethodScreen />} />
               <Route path="/order/:id" element={<OrderScreen />} />
-
               <Route path="/product/:slug" element={<ProductScreen />} />
             </Routes>
           </Container>

@@ -25,7 +25,7 @@ const SignupScreen = () => {
     };
     e.preventDefault();
     try {
-      await axios.post('api/user/register', outputs).then((response) => {
+      await axios.post('/api/user/register', outputs).then((response) => {
         console.log(response);
         if (response.data.success) {
           // alert('sucessfully registered');
