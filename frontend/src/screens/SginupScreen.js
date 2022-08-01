@@ -27,13 +27,13 @@ const SignupScreen = () => {
     try {
       await axios.post('/api/user/register', outputs).then((response) => {
         console.log(response);
-        if (response.data.success) {
+        if (response.data) {
           // alert('sucessfully registered');
           localStorage.setItem(
             'userInfo',
-            JSON.stringify(response.data.success)
+            JSON.stringify(response.data)
           );
-          ctxDispatch({ type: 'USER_SIGNIN', payload: response.data.success });
+          ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
           toast.success('sucessfully signed in');
           navigate(redirect || '/');
         }

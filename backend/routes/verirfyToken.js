@@ -24,7 +24,7 @@ export const verifyToken = (req, res, next) => {
     const data = jwt.verify(token, 'mysecretkey');
 
     user
-      .findOne({ _id: data.userId })
+      .findOne({ _id: data._id })
       .then(function (result) {
         console.log(result);
         req.userInfo = result;

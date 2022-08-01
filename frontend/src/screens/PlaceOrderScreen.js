@@ -28,7 +28,7 @@ const reducer = (state, action) => {
 };
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
-
+  // const userId=useParams();
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
   });
@@ -62,7 +62,7 @@ const PlaceOrderScreen = () => {
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREAT_REQUEST' });
-      const { data } = await axios.post('/api/orders', outputs, {
+      const {data}  = await axios.post('/api/orders', outputs, {
         headers: {
           authorization: `Bearer ${userInfo.token}`,
         },

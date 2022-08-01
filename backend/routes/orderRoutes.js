@@ -1,12 +1,13 @@
 import express from 'express';
 import Order from '../models/orderModel.js';
-import {isAuth, verifyToken, verifyTokenAndAdmin, verifyTokenAndAuthorization} from "./verirfyToken.js"
+// import { verifyToken, verifyTokenAndAdmin, verifyTokenAndAuthorization} from "./verirfyToken.js"
+import {isAuth} from "../utils.js"
 
 const orderRoute = express.Router();
 
 orderRoute.post(
   '/',
-  verifyToken,
+  isAuth,
   async (req, res) => {
     const newOrder = new Order({
       orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
@@ -16,7 +17,7 @@ orderRoute.post(
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
-      user: req.userInfo._id,
+      user: req.user._id,
     });
     const order = await newOrder.save();
     res

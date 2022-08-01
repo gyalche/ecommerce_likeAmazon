@@ -4,6 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const reducer = (state, action) => {
   // eslint-disable-next-line default-case
@@ -22,7 +25,10 @@ const reducer = (state, action) => {
 };
 
 const OrderScreen = () => {
-  const { orderId } = useParams();
+  // const { orderId } = useParams();
+  const params=useParams();
+  const {id:orderId}=params;
+  // const {orderId}=useParams();
   const navigate = useNavigate();
   const { state } = useContext(Store);
   const { userInfo } = state;
@@ -37,8 +43,8 @@ const OrderScreen = () => {
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const data = await axios.get(`/api/orders/${orderId}`, {
-          headers: { authorization: 'Bearer ${userInfo.token' },
+        const {data} = await axios.get(`/api/orders/${orderId}`, {
+          headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (error) {
@@ -57,7 +63,40 @@ const OrderScreen = () => {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div></div>
+    <div>
+      <h1>Order {orderId}</h1>
+      <h1>Hello brother</h1>
+      <Row>
+        <Col md={8}>
+          <Card className="mb-3">
+            <Card.Body>
+              <Card.Title>Shipping</Card.Title>
+              <Card.Text>
+                <strong>Name:</strong>{order.shippingAddress.fullName}<br />
+                <strong>Address:</strong>{order.shippingAddress.address},
+                {order.shippingAddress.city}, {order.shippingAddress.postalCode},
+                {order.shippingAddress.Country}
+
+              </Card.Text>
+
+              {order.isDelivered ? (
+                <MessageBox variant="success">Delivered at {order.deliveredAt}</MessageBox>
+              ):(<MessageBox vairant="danger">Not Delivered</MessageBox>)}
+            </Card.Body>
+          </Card>
+
+          <Card className="mb-3">
+              <Card.Body>
+                <Card.Title>Payment</Card.Title>
+                <Card.Text><strong>Method:</strong>{order.paymentMethod}</Card.Text>
+                {order.isPaid ? (<MessageBox variant="success">Paid at {order.paidAt}</MessageBox>)
+                :(<MessageBox variant="danger">Not Paid</MessageBox>)
+              }
+              </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
