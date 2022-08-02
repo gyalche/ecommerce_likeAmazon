@@ -25,4 +25,17 @@ orderRoute.post(
       .send({ message: 'New order created', order });
   }
 );
+
+orderRoute.get(
+  '/:id',
+  isAuth,
+  async (req, res) => {
+    const order=await Order.findById(req.params.id);
+    if(order) {
+      res.send(order);
+    }else{
+      res.status(404).send({message:"Order not found"})
+    }
+  }
+);
 export default orderRoute;
