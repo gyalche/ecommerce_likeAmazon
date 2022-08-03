@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', '*');
   next();
 });
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +41,14 @@ app.use('/api/products', productRouter);
 app.use('/api/user/', authRoute);
 app.use('/api/orders', orderRoute);
 
-const port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log(`server at http://localhost:${port}`);
+app.get('/api/keys/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+})
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, function () {
+  console.log(`server at http://localhost:${PORT}`);
+ 
 });
+

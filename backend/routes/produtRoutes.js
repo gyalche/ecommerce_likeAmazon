@@ -3,8 +3,10 @@ const productRouter = express.Router();
 import Product from '../models/productModel.js';
 
 productRouter.get('/', async (req, res) => {
-  const products = await Product.find();
-  res.send(products);
+
+    const products = await Product.find();
+    res.send(products);
+  
 });
 
 productRouter.get('/slug/:slug', async (req, res) => {
