@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import CryptoJS from 'crypto-js';
 import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs'
-import {generateToken} from "../utils.js"
+import {generateToken, isAuth} from "../utils.js"
 const router = new express.Router();
 
 
@@ -22,13 +22,8 @@ router.post('/register', async function (req, res) {
     token:generateToken(user)
   })
 
-  // try {
-  //   const savedUser = await user.save();
-  //   res.status(201).send({ savedUser, success: true });
-  // } catch (error) {
-  //   res.status(500).send(error.message);
-  // }
 });
+
 
 //Login;
 
@@ -51,31 +46,28 @@ router.post('/login', async (req, res) => {
     
   })
   
-  //   !user && res.status(401).json('email doesnt exist');
+ //update userprofile information;
+ router.put('/profile', isAuth, async(req, res)=>{
+   const user=await User.findById(req.user._id);
+   if(user){
+     user.username=req.body.username || user.username;
+     user.email=req.body.email || user.email;
+     if(req.body.password){
+       user.password=bcrypt.hashSync(req.body.password, 8);
+     }
 
-  //   const hashedPassword = CryptoJS.AES.decrypt(user.password, 'mysecretkey');
-
-  //   const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
-  //   // const inputPassword = req.body.password;
-  //   originalPassword !== req.body.password &&
-  //     res.status(401).json('password is incorrect');
-
-  //   //if email and password matches;
-
-  //   const accessToken = jwt.sign(
-  //     {
-  //       _id: user._id,
-  //       isAdmin: user.isAdmin,
-  //     },
-  //     'mysecretkey',
-  //     { expiresIn: '3d' }
-  //   );
-  //   const { password, ...others } = user._doc;
-  //   res.status(200).json({ token: accessToken, ...others });
-  // } catch (error) {
-  //   res.status(500).json(error.message);
-  // }
+     const updatedUser= await user.save();
+     res.send({
+       _id:updatedUser._id,
+       username:updatedUser.username,
+       email:updatedUser.email,
+       isAdmin:updatedUser.isAdmin,
+       token:generateToken(updatedUser)
+     })
+   }else{
+     res.status(404).send({message:"user not found"})
+   }
+ })
 
 
 export default router;
