@@ -28,7 +28,7 @@ orderRoute.post(
 
 orderRoute.get('/mine', isAuth, async(req, res)=>{
   const order=await Order.find({user:req.user._id});
-  res.send(orders);
+  res.send(order);
 
 })
 

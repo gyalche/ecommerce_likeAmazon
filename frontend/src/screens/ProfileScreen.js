@@ -33,7 +33,7 @@ const ProfileScreen = () => {
     const submitHandler= async(e)=> {
         e.preventDefault();
         try {
-            const {data}= await axios.put(`/api/users/profile`,
+            const {data}= await axios.put(`/api/user/profile`,
             {userName, email, password},
             {headers:{Authorization: 'Bearer ${userInfo.token'}})
             dispatch({type:'UPDATE_SUCCESS'});
