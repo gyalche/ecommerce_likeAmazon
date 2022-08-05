@@ -9,6 +9,7 @@ productRouter.get('/', async (req, res) => {
   
 });
 
+//for search and sorting;
 const PAGE_SIZE=3;
 productRouter.get('/search', async (req, res) => {
 

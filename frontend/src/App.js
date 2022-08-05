@@ -24,6 +24,7 @@ import Button from "react-bootstrap/Button";
 import axios from './axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
@@ -147,13 +148,25 @@ function App() {
               <Route path="/cart" element={<CartScree />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <ProfileScreen />
+                </ProtectedRoute>
+                } />
               <Route path="/shipping" element={<ShippingAddressScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/payment" element={<PaymentMethodScreen />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
+              <Route path="/order/:id" element={
+                <ProtectedRoute>
+                   <OrderScreen />
+                </ProtectedRoute>
+               } />
               <Route path="/product/:slug" element={<ProductScreen />} />
-              <Route path="/orderhistory" element={<OrderHistoryScreen />} />
+              <Route path="/orderhistory" element={
+                <ProtectedRoute>
+                   <OrderHistoryScreen />
+                </ProtectedRoute>
+               } />
               <Route path="/search" element={<SearchScreen />} />
 
             </Routes>
