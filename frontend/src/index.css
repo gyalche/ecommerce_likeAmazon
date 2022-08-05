@@ -111,3 +111,7 @@ main {
 .active-nav{
   left:0;
 }
+
+#admin-nav-dropdown{
+  color:white;
+}

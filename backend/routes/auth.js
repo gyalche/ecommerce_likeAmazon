@@ -12,14 +12,15 @@ router.post('/register', async function (req, res) {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: CryptoJS.AES.encrypt(req.body.password, 'mysecretkey').toString(),
+    password: bcrypt.hashSync(req.body.password)
   });
+  const newUser=await user.save();
   res.send({
-    _id:user._id,
-    username:user.username,
-    email:user.email,
-    isAdmin:user.isAdmin,
-    token:generateToken(user)
+    _id:newUser._id,
+    username:newUser.username,
+    email:newUser.email,
+    isAdmin:newUser.isAdmin,
+    token:generateToken(newUser)
   })
 
 });
@@ -31,7 +32,7 @@ router.post('/login', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
     if(user) {
       
-      if(bcrypt(req.body.password, user.password)){
+      if(bcrypt.compareSync(req.body.password, user.password)){
         res.send({
           _id:user._id,
           username:user.username,
