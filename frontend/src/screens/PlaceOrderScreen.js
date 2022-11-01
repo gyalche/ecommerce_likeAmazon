@@ -50,7 +50,7 @@ const PlaceOrderScreen = () => {
 
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-    const outputs = {
+  const outputs = {
     orderItems: cart.cartItems,
     shippingAddress: cart.shippingAddress,
     paymentMethod: cart.paymentMethod,
@@ -62,7 +62,7 @@ const PlaceOrderScreen = () => {
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREAT_REQUEST' });
-      const {data}  = await axios.post('/api/orders', outputs, {
+      const { data } = await axios.post('/api/orders', outputs, {
         headers: {
           authorization: `Bearer ${userInfo.token}`,
         },
@@ -126,8 +126,7 @@ const PlaceOrderScreen = () => {
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="img-fluid rounded img-thumbnail"
-                        ></img>
+                          className="img-fluid rounded img-thumbnail"></img>
                         <Link to={`/product/${item.slug}`}>{item.name}</Link>
                       </Col>
                       <Col md={3}>
@@ -183,8 +182,7 @@ const PlaceOrderScreen = () => {
                     <Button
                       type="button"
                       onClick={placeOrderHandler}
-                      disabled={cart.cartItems.length === 0}
-                    >
+                      disabled={cart.cartItems.length === 0}>
                       Place Order
                     </Button>
                     {loading && <LoadingBox></LoadingBox>}

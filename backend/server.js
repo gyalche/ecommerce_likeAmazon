@@ -44,19 +44,17 @@ app.use('/api/orders', orderRoute);
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/frontend/build')));
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
-})
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
+});
 
 app.get('/api/keys/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
-})
+});
 
+app.get()
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, function () {
   console.log(`server at http://localhost:${PORT}`);
- 
 });
-

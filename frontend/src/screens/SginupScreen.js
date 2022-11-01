@@ -11,11 +11,12 @@ const SignupScreen = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectInUrl ? redirectInUrl : '/';
+
+   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
 
   const submitHandler = async (e) => {
     const outputs = {
